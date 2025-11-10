@@ -1,0 +1,15 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="container">
+  <div class="image-box">
+    <img src="{% static 'images/flower1.png' %}" alt="Flower Image" />
+  </div>
+
+  <div class="content">
+    <div class="title">Petals</div>
+    <div class="subtitle">Give Flowers Today!</div>
+    <a href="{% url 'flower_list' %}">
+      <button class="cta-button">Order Now!</button>
+    </a>
+  </div>
+</div>
+{% endblock %}

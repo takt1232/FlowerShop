@@ -1,0 +1,34 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="page">
+  <header>
+    <div class="logo">Petals</div>
+    <nav>
+      <a href="#">Cart</a>
+      <a href="#">Reservation</a>
+      <a href="#">About Us</a>
+    </nav>
+    <div class="icons">
+      <i class="fab fa-facebook-f"></i>
+      <i class="fab fa-instagram"></i>
+    </div>
+  </header>
+
+  <div class="gallery">
+    {% for flower in flowers %}
+    <div class="item">
+      <a href="{% url 'flower_details' flower.pk %}">
+        {% if flower.image %}
+        <img src="{{ flower.image.url }}" alt="{{ flower.name }}" />
+        {% else %}
+        <img
+          src="{% static 'images/default-flower.png' %}"
+          alt="{{ flower.name }}"
+        />
+        {% endif %}
+      </a>
+      <div class="item-title">{{ flower.name }}</div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

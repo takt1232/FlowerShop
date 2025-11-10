@@ -1,0 +1,92 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<div class="product-section">
+  <div class="product-header">
+    <div class="back-btn" onclick="history.back()">
+      <i class="fa-solid fa-arrow-left"></i>
+    </div>
+
+    <div class="h-divider"></div>
+
+    <h2 style="color: #d99797; letter-spacing: 3px">Single Flower</h2>
+    <div class="categories">
+      <span class="filter-btn">Flower Bouquet</span>
+      <span class="filter-btn">Potted Flowers</span>
+    </div>
+  </div>
+
+  <div class="add-btn-div">
+    <a href="{% url 'add_flower' %}">
+      <button class="add-btn">Add Flower</button>
+    </a>
+  </div>
+
+  <div class="flower-div">
+    {% if flower.image %}
+    <img src="{{ flower.image.url }}" alt="{{ flower.name }}" />
+    {% else %}
+    <img
+      src="{% static 'images/default-flower.png' %}"
+      alt="{{ flower.name }}"
+    />
+    {% endif %}
+    <div class="item-title">{{ flower.name }}</div>
+
+    <div class="action-btn">
+      <div class="heart-comment-div">
+        <i class="fa-regular fa-heart"></i>
+        <i class="fa-solid fa-message"></i>
+      </div>
+
+      <div class="delete-btn-div">
+        <button id="openModal">
+          <i class="fa-solid fa-trash"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="deleteModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Are you sure you want to delete "{{ flower.name }}"?</h2>
+        <form method="POST" action="{% url 'delete_flower' flower.pk %}">
+          {% csrf_token %}
+          <button type="submit" class="delete-btn">Yes, Delete</button>
+          <button type="button" class="cancel-btn">Cancel</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById("deleteModal");
+  const openBtn = document.getElementById("openModal");
+  const closeBtn = document.querySelector(".close");
+  const cancelBtn = document.querySelector(".cancel-btn");
+
+  // Open modal
+  openBtn.onclick = function () {
+    modal.style.display = "block";
+  };
+
+  // Close modal with X
+  closeBtn.onclick = function () {
+    modal.style.display = "none";
+  };
+
+  // Close modal with Cancel button
+  cancelBtn.onclick = function () {
+    modal.style.display = "none";
+  };
+
+  // Close modal if clicking outside of modal content
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  };
+</script>
+
+{% endblock %}

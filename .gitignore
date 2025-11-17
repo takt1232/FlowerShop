@@ -32,3 +32,4 @@ ENV/
 .vscode/
 .idea/
 *.iml
+/app/__pycache__

@@ -1,4 +1,11 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
+{% extends 'base.html' %} {% load static %} 
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<link rel="stylesheet" href="{% static 'css/update-flower.css' %}">
+{% endblock %}
+
+{% block content %}
 
 <div class="product-section">
   <div class="product-header">
@@ -34,7 +41,7 @@
 
     <div class="action-btn">
       <div class="heart-comment-div">
-        <i class="fa-regular fa-heart"></i>
+        <i class="fa-solid fa-pen-to-square" id="openUpdateModal"></i>
         <i class="fa-solid fa-message"></i>
       </div>
 
@@ -54,6 +61,35 @@
           {% csrf_token %}
           <button type="submit" class="delete-btn">Yes, Delete</button>
           <button type="button" class="cancel-btn">Cancel</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Update Modal -->
+    <div id="updateModal" class="modal">
+      <div class="modal-content">
+        <span class="close-update">&times;</span>
+        <h2>Update "{{ flower.name }}"</h2>
+
+        <form method="POST" action="{% url 'update_flower' flower.pk %}" enctype="multipart/form-data">
+          {% csrf_token %}
+          <label>Name</label>
+          <input type="text" name="name" value="{{ flower.name }}" required>
+
+          <label>Category</label>
+          <select name="category" required>
+            {% for cat in categories %}
+              <option value="{{ cat.id }}" {% if cat.id == flower.category.id %}selected{% endif %}>
+                {{ cat.name }}
+              </option>
+            {% endfor %}
+          </select>
+
+          <label>Image</label>
+          <input type="file" name="image">
+
+          <button type="submit" class="update-btn">Update</button>
+          <button type="button" class="cancel-update-btn">Cancel</button>
         </form>
       </div>
     </div>
@@ -87,6 +123,35 @@
       modal.style.display = "none";
     }
   };
+
+  // Update Modal Elements
+  const updateModal = document.getElementById("updateModal");
+  const openUpdateBtn = document.getElementById("openUpdateModal");
+  const closeUpdateBtn = document.querySelector(".close-update");
+  const cancelUpdateBtn = document.querySelector(".cancel-update-btn");
+
+  // Open update modal
+  openUpdateBtn.onclick = function () {
+    updateModal.style.display = "block";
+  };
+
+  // Close update modal (X)
+  closeUpdateBtn.onclick = function () {
+    updateModal.style.display = "none";
+  };
+
+  // Close update modal (Cancel)
+  cancelUpdateBtn.onclick = function () {
+    updateModal.style.display = "none";
+  };
+
+  // Close update modal by clicking outside
+  window.onclick = function (event) {
+    if (event.target === updateModal) {
+      updateModal.style.display = "none";
+    }
+  };
+
 </script>
 
 {% endblock %}

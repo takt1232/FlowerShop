@@ -25,7 +25,8 @@ def flower_list(request, pk):
 
 def flower_details(request, pk):
     flower = get_object_or_404(Flower, pk=pk)
-    return render(request, 'app/flower-details.html', {'flower': flower})
+    categories = FlowerCategory.objects.all()
+    return render(request, 'app/flower-details.html', {'flower': flower, 'categories': categories})
 
 def add_flower(request):
     if request.method == 'POST':
@@ -36,6 +37,21 @@ def add_flower(request):
     else:
         form = FlowerForm()
     return render(request, 'app/add-flower.html', {'form': form})
+
+def update_flower(request, pk):
+    flower = get_object_or_404(Flower, pk=pk)
+
+    if request.method == "POST":
+        flower.name = request.POST.get("name")
+        flower.category_id = request.POST.get("category")
+
+        if "image" in request.FILES:
+            flower.image = request.FILES["image"]
+
+        flower.save()
+        return redirect('flower_categories')
+
+    return redirect('flower_detail', pk=pk)
 
 def delete_flower(request, pk):
     flower = get_object_or_404(Flower, pk=pk)

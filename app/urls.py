@@ -11,6 +11,7 @@ urlpatterns = [
     path('flowers/<int:pk>/', views.flower_details, name='flower_details'),
     path('flowers/add/', views.add_flower, name='add_flower'),
     path('flowers/<int:pk>/delete/', views.delete_flower, name='delete_flower'),
+    path('flowers/<int:pk>/update/', views.update_flower, name='update_flower'),
 ]
 
 if settings.DEBUG:

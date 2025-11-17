@@ -1,0 +1,153 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Georgia", serif;
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  width: 100%;
+  max-width: 1100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.image-box img {
+  width: 230px;
+  height: auto;
+  opacity: 0.9;
+}
+
+.content {
+  text-align: center;
+  flex: 1;
+  margin-left: 60px;
+}
+
+.title {
+  font-size: 42px;
+  letter-spacing: 4px;
+  color: #d99797;
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+
+.subtitle {
+  font-size: 18px;
+  color: #9d9d9d;
+  margin-bottom: 40px;
+  letter-spacing: 2px;
+}
+
+.cta-button {
+  padding: 10px 30px;
+  border: 1px solid #d8a7a7;
+  border-radius: 20px;
+  background: #f9e5e5;
+  cursor: pointer;
+  font-size: 14px;
+  color: #b98989;
+  transition: 0.3s ease;
+}
+
+.cta-button:hover {
+  background: #d8a7a7;
+  color: white;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 50px;
+}
+.logo {
+  font-size: 36px;
+  color: #d99797;
+  font-weight: bold;
+  letter-spacing: 4px;
+}
+nav a {
+  margin: 0 15px;
+  font-size: 16px;
+  color: #d59a9a;
+  text-decoration: none;
+}
+nav a:hover {
+  opacity: 0.7;
+}
+.icons i {
+  font-size: 22px;
+  margin-left: 15px;
+  cursor: pointer;
+  color: #d59a9a;
+  opacity: 0.8;
+}
+
+.icons i:hover {
+  opacity: 1;
+}
+
+.add-flower-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  color: #d59a9a;
+}
+form {
+  border-radius: 12px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+form h2 {
+  text-align: center;
+  color: #d59a9a;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #d59a9a;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.form-select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 2px solid #d8a4a4;
+  border-radius: 6px;
+  background-color: #fff;
+  font-size: 15px;
+  color: #555;
+  outline: none;
+  cursor: pointer;
+
+  /* Remove default arrow */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%23d8a4a4' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 14px;
+}
+
+/* Hover and Focus effect */
+.form-select:focus {
+  border-color: #d99797;
+  box-shadow: 0 0 4px rgba(217, 151, 151, 0.4);
+}

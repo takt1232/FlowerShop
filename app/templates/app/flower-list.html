@@ -1,21 +1,33 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
-<div class="page">
-  <header>
-    <div class="logo">Petals</div>
-    <nav>
-      <a href="#">Cart</a>
-      <a href="#">Reservation</a>
-      <a href="#">About Us</a>
-    </nav>
-    <div class="icons">
-      <i class="fab fa-facebook-f"></i>
-      <i class="fab fa-instagram"></i>
+{% extends 'base.html' %} {% load static %} {% block css %}
+<link rel="stylesheet" href="{% static 'css/flower-list.css' %}" />
+{% endblock %} {% block content %}
+
+<div class="product-section">
+  <div class="product-header">
+    <div class="back-btn" onclick="history.back()">
+      <i class="fa-solid fa-arrow-left"></i>
     </div>
-  </header>
+
+    <div class="h-divider"></div>
+
+    <h2 style="color: #d99797; letter-spacing: 3px">{{ category.name }}</h2>
+
+    <div class="categories">
+      <span class="filter-btn">Flower Bouquet</span>
+      <span class="filter-btn">Potted Flowers</span>
+    </div>
+  </div>
+
+  <div class="add-btn-div">
+    <a href="{% url 'add_flower' %}">
+      <button class="add-btn">Add Flower</button>
+    </a>
+  </div>
 
   <div class="gallery">
     {% for flower in flowers %}
     <div class="item">
+      <!-- Item Image -->
       <a href="{% url 'flower_details' flower.pk %}">
         {% if flower.image %}
         <img src="{{ flower.image.url }}" alt="{{ flower.name }}" />
@@ -26,9 +38,70 @@
         />
         {% endif %}
       </a>
+
       <div class="item-title">{{ flower.name }}</div>
+
+      <!-- Action Buttons -->
+      <div class="action-btn">
+        <div class="heart-comment-div">
+          <i class="fa-regular fa-heart"></i>
+          <i class="fa-solid fa-message"></i>
+        </div>
+
+        <div class="delete-btn-div">
+          <button class="openModalBtn" data-target="modal-{{ flower.pk }}">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal (unique per flower) -->
+      <div id="modal-{{ flower.pk }}" class="modal">
+        <div class="modal-content">
+          <span class="close" data-target="modal-{{ flower.pk }}">&times;</span>
+          <h2>Are you sure you want to delete "{{ flower.name }}"?</h2>
+
+          <form method="POST" action="{% url 'delete_flower' flower.pk %}">
+            {% csrf_token %}
+            <button type="submit" class="delete-btn">Yes, Delete</button>
+            <button
+              type="button"
+              class="cancel-btn"
+              data-target="modal-{{ flower.pk }}"
+            >
+              Cancel
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
     {% endfor %}
   </div>
 </div>
+
+<script>
+  // Open Modal
+  document.querySelectorAll(".openModalBtn").forEach((btn) => {
+    btn.addEventListener("click", function () {
+      const target = this.dataset.target;
+      document.getElementById(target).style.display = "block";
+    });
+  });
+
+  // Close Modal (X and Cancel)
+  document.querySelectorAll(".close, .cancel-btn").forEach((btn) => {
+    btn.addEventListener("click", function () {
+      const target = this.dataset.target;
+      document.getElementById(target).style.display = "none";
+    });
+  });
+
+  // Close modal when clicking outside
+  window.onclick = function (event) {
+    if (event.target.classList.contains("modal")) {
+      event.target.style.display = "none";
+    }
+  };
+</script>
+
 {% endblock %}

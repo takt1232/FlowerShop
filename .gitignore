@@ -33,3 +33,4 @@ ENV/
 .idea/
 *.iml
 /app/__pycache__
+/app/migrations/__pycache__

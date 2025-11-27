@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from app.models import Flower, FlowerCategory
-from .forms import FlowerForm
+from .forms import FlowerCategoryForm, FlowerForm
 
 # Create your views here.
 def landing_page(request):
@@ -12,6 +12,16 @@ def login_page(request):
 def flower_category(request):
     categories = FlowerCategory.objects.all()
     return render(request, 'app/flower-category.html', {"categories": categories})
+
+def flower_category_create(request):
+    if request.method == 'POST':
+        form = FlowerCategoryForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('flower_categories')
+    else:
+        form = FlowerCategoryForm()
+    return render(request, 'app/add-flower-category.html', {'form': form})
 
 def flower_list(request, pk):
     category = FlowerCategory.objects.get(pk=pk)

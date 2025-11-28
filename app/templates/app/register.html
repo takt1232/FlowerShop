@@ -5,7 +5,7 @@
   <div class="login-card">
     <div class="login-left">
       <h1 class="brand-title">Petals</h1>
-      <p class="tagline">Where every bloom tells a story</p>
+      <p class="tagline">Create a new account</p>
 
       {% if messages %} {% for message in messages %}
       <p style="color: red; font-size: 13px; margin-bottom: 10px">
@@ -15,19 +15,22 @@
 
       <form method="POST">
         {% csrf_token %}
+        <label>Full Name</label>
+        <input type="text" name="name" required />
+
         <label>Email</label>
         <input type="email" name="email" required />
 
         <label>Password</label>
         <input type="password" name="password" required />
 
-        <button type="submit" class="login-btn">Login</button>
-
-        <p style="margin-top: 10px; font-size: 13px">
-          Don't have an account?
-          <a href="{% url 'register' %}" style="color: #cd7d7d">Register</a>
-        </p>
+        <button type="submit" class="login-btn">Register</button>
       </form>
+
+      <p style="margin-top: 10px; font-size: 13px">
+        Already have an account?
+        <a href="{% url 'login' %}" style="color: #cd7d7d">Login</a>
+      </p>
     </div>
 
     <div class="login-right">

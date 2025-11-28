@@ -4,8 +4,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', views.login_page, name='landing_page'),
+    path('', views.login_page, name='login'),
     path('home', views.landing_page, name='landing_page'),
+    path('register/', views.register, name='register'),
     path('flower-categories', views.flower_category, name='flower_categories'),
     path('flower-categories/add/', views.flower_category_create, name='flower_category_create'),
     path('flower-list/<int:pk>/', views.flower_list, name='flower_list'),

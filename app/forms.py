@@ -1,5 +1,5 @@
 from django import forms
-from .models import Flower
+from .models import Flower, FlowerCategory
 
 class FlowerForm(forms.ModelForm):
     class Meta:
@@ -9,3 +9,9 @@ class FlowerForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Flower Name'}),
             'category': forms.Select(attrs={'class': 'form-select'})  # ← dropdown styling
         }
+
+class FlowerCategoryForm(forms.ModelForm):
+    class Meta:
+        model = FlowerCategory
+        fields = ['name', 'image']
+        

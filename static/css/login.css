@@ -17,12 +17,12 @@ body {
 .login-card {
   width: 72%;
   max-width: 900px;
-  height: 400px;
   background: #ffffff;
   display: flex;
   border-radius: 6px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  min-height: 420px; /* optional, can remove */
 }
 
 /* Left Section */
